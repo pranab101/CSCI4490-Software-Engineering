@@ -9,7 +9,7 @@ Follow this order for proper launch:
 1. run: GuWeeOhServer.bat
 2. run: GuWeeOhClient.bat
    
-   a. enter the IP address of the machine that GuWeeOhServer.bat is running
+   a. enter the IP address of the machine that GuWeeOhServer.bat is running on
    
    
    b. repeat for client 2
