@@ -9,7 +9,7 @@ import clientCommunication.*;
 
 public class GamePanel extends JPanel 
 {
-	public GamePanel()
+	public GamePanel(GameControl gc)
 	{
 		JPanel north = new JPanel();
 		JPanel east = new JPanel();
@@ -28,22 +28,22 @@ public class GamePanel extends JPanel
 		westRowPanel.add(wizard1healthLabel);
 
 		JLabel wizard1card1 = new JLabel("");
-		wizard1card1.setIcon(new ImageIcon(GamePanel.class.getResource("/GuWeeOh/fire.png")));
+		wizard1card1.setIcon(new ImageIcon(GamePanel.class.getResource("./fire.png")));
 		westRowPanel.add(wizard1card1);
 		
 		JLabel wizard1card2 = new JLabel("");
-		wizard1card2.setIcon(new ImageIcon(GamePanel.class.getResource("/GuWeeOh/water.png")));
+		wizard1card2.setIcon(new ImageIcon(GamePanel.class.getResource("./water.png")));
 		westRowPanel.add(wizard1card2);
 
 		JLabel wizard1card3 = new JLabel("");
-		wizard1card3.setIcon(new ImageIcon(GamePanel.class.getResource("/GuWeeOh/electricity.png")));
+		wizard1card3.setIcon(new ImageIcon(GamePanel.class.getResource("./electricity.png")));
 		westRowPanel.add(wizard1card3);
 
 		// Center - Wizard Icon, Statuses, and Card Selections
 		JPanel centerGrid = new JPanel(new GridLayout(3, 1));
 
 		JLabel wizardIcon = new JLabel("");
-		wizardIcon.setIcon(new ImageIcon(GamePanel.class.getResource("/GuWeeOh/wizardclear.png")));
+		wizardIcon.setIcon(new ImageIcon(GamePanel.class.getResource("./wizardclear.png")));
 		centerGrid.add(wizardIcon);
 		
 		JPanel cardChoicePanel = new JPanel(new GridLayout(2, 1));
@@ -86,15 +86,15 @@ public class GamePanel extends JPanel
 		eastRowPanel.add(wizard2healthLabel);
 
 		JLabel wizard2card1 = new JLabel("");
-		wizard2card1.setIcon(new ImageIcon(GamePanel.class.getResource("/GuWeeOh/health.png")));
+		wizard2card1.setIcon(new ImageIcon(GamePanel.class.getResource("./health.png")));
 		eastRowPanel.add(wizard2card1);
 
 		JLabel wizard2card2 = new JLabel("");
-		wizard2card2.setIcon(new ImageIcon(GamePanel.class.getResource("/GuWeeOh/water.png")));
+		wizard2card2.setIcon(new ImageIcon(GamePanel.class.getResource("./water.png")));
 		eastRowPanel.add(wizard2card2);
 
 		JLabel wizard2card3 = new JLabel("");
-		wizard2card3.setIcon(new ImageIcon(GamePanel.class.getResource("/GuWeeOh/fire.png")));
+		wizard2card3.setIcon(new ImageIcon(GamePanel.class.getResource("./fire.png")));
 		eastRowPanel.add(wizard2card3);
 
 		// South - Play Hand / Play Again / Quit Game Buttons

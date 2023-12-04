@@ -19,7 +19,7 @@ public class Database
 
 	FileInputStream fis = null;
 	try {
-		fis = new FileInputStream("lab7out/db.properties");
+		fis = new FileInputStream("./db.properties");
 	} catch (FileNotFoundException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

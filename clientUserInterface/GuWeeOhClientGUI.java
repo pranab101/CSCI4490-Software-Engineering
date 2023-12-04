@@ -10,11 +10,11 @@ package clientUserInterface;
 	  
 	  
 	  // Constructor that creates the client GUI.
-	  public GuWeeOhClientGUI()
+	  public GuWeeOhClientGUI(String serverAddress)
 	  {
 	    // Set up the chat client.
 	   GuWeeOhClient client = new GuWeeOhClient();
-	    client.setHost("localhost");
+	    client.setHost(serverAddress);
 	    client.setPort(8300);
 	    try
 	    {
@@ -62,7 +62,7 @@ package clientUserInterface;
 	    container.add(view2, "2");
 	    container.add(view3, "3");
 	    container.add(view4, "4");
-	    container.add(view4, "5");
+	    container.add(view5, "5");
 	    
 	    // Show the initial view in the card layout.
 	    cardLayout.show(container, "1");
@@ -80,6 +80,17 @@ package clientUserInterface;
 	  // Main function that creates the client GUI when the program is started.
 	  public static void main(String[] args)
 	  {
-	    new GuWeeOhClientGUI();
+		  String serverAddress = "";
+		  
+		  JFrame frame = new JFrame("GuWeeOh Client");
+	      serverAddress = JOptionPane.showInputDialog(
+	          frame,
+	          "Enter IP Address of the Server:",
+	          "Welcome to GuWeeOh!",
+	          JOptionPane.QUESTION_MESSAGE);
+	      frame.setVisible(true);
+	    new GuWeeOhClientGUI(serverAddress);
+	    frame.setVisible(false);
+		  
 	  }
 	}
