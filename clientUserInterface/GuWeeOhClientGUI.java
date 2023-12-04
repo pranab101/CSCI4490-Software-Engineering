@@ -43,7 +43,6 @@ package clientUserInterface;
 	    // We need to implement this in client communication package
 	    GameControl gc = new GameControl(container,client);
 	    LobbyControl loc = new LobbyControl(container,client);
-	    StartGameControl sgc = new StartGameControl(container,client);
 	    
 	    //Set the client info
 	    client.setLoginControl(lc);
@@ -55,8 +54,7 @@ package clientUserInterface;
 	    JPanel view2 = new LoginPanel(lc);
 	    JPanel view3 = new CreateAccountPanel(cac);
 	    JPanel view4 = new LobbyPanel(loc);
-	    JPanel view5 = new StartGamePanel(sgc);
-	    JPanel view6 = new GamePanel(gc);
+	    JPanel view5 = new GamePanel(gc);
 	    
 	    
 	    // Add the views to the card layout container.
@@ -65,7 +63,6 @@ package clientUserInterface;
 	    container.add(view3, "3");
 	    container.add(view4, "4");
 	    container.add(view4, "5");
-	    container.add(view4, "6");
 	    
 	    // Show the initial view in the card layout.
 	    cardLayout.show(container, "1");
