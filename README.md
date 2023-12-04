@@ -11,6 +11,7 @@ Follow this order for proper launch:
    
    a. enter the IP address of the machine that GuWeeOhServer.bat is running
    
+   
    b. repeat for client 2
    
 4. Login/Create account
