@@ -20,6 +20,9 @@ public class LobbyPanel extends JPanel
 		// Create the information label.
 		JLabel titleLabelIntro = new JLabel("Welcome to", JLabel.CENTER);
 	    JLabel titleLabel = new JLabel("", JLabel.CENTER);
+	    
+	    Font titleFont = new Font("Arial", Font.BOLD, 24); // You can adjust the font family, style, and size
+	    titleLabel.setFont(titleFont);
 
 	    titleLabel.setIcon(new ImageIcon(LobbyPanel.class.getResource("/clientUserInterface/GuWeeOhLogo.png")));
 	    JPanel titleBufferPanel = new JPanel(new GridLayout(2,0,5,5));
@@ -50,11 +53,18 @@ public class LobbyPanel extends JPanel
 	    setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 	    JPanel grid = new JPanel(new GridLayout(4, 1, 10, 30));
 	    grid.setBackground(new Color(255, 255, 255));
-	    //grid.add(upperFill);
+	    
+	    JScrollPane scrollPane = new JScrollPane(grid);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        
+        Dimension panelSize = new Dimension(600, 500); // Adjust the size according to your preference
+        setPreferredSize(panelSize);
+        
+        
 	    grid.add(titleBufferPanel);
-	    //grid.add(newGameButtonBuffer);
 	    grid.add(joinGameButtonBuffer);
-	    this.add(grid);
+	    add(scrollPane);
+	    add(grid);
 	    
 	}
 
