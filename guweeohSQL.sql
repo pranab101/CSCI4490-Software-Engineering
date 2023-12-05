@@ -2,7 +2,7 @@ DROP TABLE users;
 
 CREATE TABLE users(
 username varchar(30),
-password varbinary(16)
+password varbinary(16),
 wins int(5);
 
 
