@@ -1,5 +1,7 @@
 package clientCommunication;
 
+import javax.swing.JOptionPane;
+
 import ocsf.client.AbstractClient;
 
 public class GuWeeOhClient extends AbstractClient
@@ -7,7 +9,8 @@ public class GuWeeOhClient extends AbstractClient
   // Private data fields for storing the GUI controllers.
   private LoginControl loginControl;
   private CreateAccountControl createAccountControl;
-
+  private GameControl gameControl;
+  
   // Setters for the GUI controllers.
   public void setLoginControl(LoginControl loginControl)
   {
@@ -17,6 +20,9 @@ public class GuWeeOhClient extends AbstractClient
   {
     this.createAccountControl = createAccountControl;
   }
+  public void setGameControl(GameControl gameControl) {
+		this.gameControl = gameControl;
+	}
 
   // Constructor for initializing the client with default settings.
   public GuWeeOhClient()
@@ -32,9 +38,10 @@ public class GuWeeOhClient extends AbstractClient
     {
       // Get the text of the message.
       String message = (String)arg0;
+      String[] serverResponse = message.split(",");
       
       // If we successfully logged in, tell the login controller.
-      if (message.equals("LoginSuccessful"))
+      if (serverResponse[0].equals("LoginSuccessful"))
       {
         loginControl.loginSuccess();
       }
@@ -43,6 +50,14 @@ public class GuWeeOhClient extends AbstractClient
       else if (message.equals("CreateAccountSuccessful"))
       {
         createAccountControl.createAccountSuccess();
+      }
+      else if (message.equals("Server Full"))
+      {
+    	  String err = "The server is currently full. Please wait for your turn.";
+
+	        // Show a pop-up dialog box with the specified message
+	        JOptionPane.showMessageDialog(null, err, "Server Full", JOptionPane.INFORMATION_MESSAGE);
+	        
       }
     }
     

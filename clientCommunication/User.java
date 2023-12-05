@@ -1,16 +1,28 @@
 package clientCommunication;
 
-import java.io.Serializable;
 
-public class User implements Serializable 
+import java.io.Serializable;
+import java.util.Random;
+
+public class User implements Serializable
 {
   // Private data fields for the username and password.
   private String username;
   private String password;
   private Long userID;
-  private String card1;
-  private String card2;
-  private String card3;
+  public String[] cards;
+  
+  
+  Random rand = new Random();
+  String[] allCards = {"Fire", "Water", "Electricity", "Health"};
+  
+  public User()
+  {
+	  cards = new String[]{"Unsure", "Unsure", "Unsure"};
+	  //health = 100;
+	  //opponentHealth = 100;
+	  //score = 0;
+  }
   
   // Getters for the username and password.
   public String getUsername()
@@ -25,19 +37,12 @@ public class User implements Serializable
   {
 	  return userID;
   }
-  public String getCard1()
+  public String[] getCards()
   {
-	  return card1;
+	  return cards;
   }
+ 
   
-  public String getCard2()
-  {
-	  return card2;
-  }
-  public String getCard3()
-  {
-	  return card3;
-  }
   // Setters for the username and password.
   public void setUsername(String username)
   {
@@ -51,22 +56,32 @@ public class User implements Serializable
   {
 	  this.userID = userID;
   }
-  public void setCard1(String card1)
+  public void setCards(String[] cards)
   {
-	  this.card1 = card1;
+	  this.cards = cards;
   }
-  public void setCard2(String card2)
-  {
-	  this.card2 = card2;
-  }
-  public void setCard3(String card3)
-  {
-	  this.card1 = card3;
-  }
+  
+  
+  public String[] dealCards()
+	{
+		String cards[] = getCards();
+		
+		for (int i = 0; i < 3; i ++) {
+			if (cards[i] == "Unsure")
+				cards[i] = allCards[rand.nextInt(4)];
+		}
+		
+		return cards;
+	}
+  
+  
+  
+  
   // Constructor that initializes the username and password.
-  public User(String username, String password)
+  public User(String username, String password, Long id)
   {
     setUsername(username);
     setPassword(password);
+    setID(id);
   }
 }

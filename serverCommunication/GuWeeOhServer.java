@@ -11,9 +11,12 @@ import clientCommunication.Error;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
+
+
 
 public class GuWeeOhServer extends AbstractServer
 {
@@ -24,6 +27,17 @@ public class GuWeeOhServer extends AbstractServer
 	  private Database database = new Database();
 	  private String dml;
 	  ArrayList<String> results;
+	  private boolean isPlayer = false;
+	  private int playerCount = 0;
+	  private String msg;
+	  private ArrayList<User> onlinePlayers = new ArrayList<User>();
+	  private String[] player1Cards ;
+	  private String[] player2Cards ;
+
+
+	  Random rand = new Random();
+
+	  GameController gc = new GameController();
 
 	  // Constructor for initializing the server with default settings.
 	  public GuWeeOhServer()
@@ -94,7 +108,7 @@ public class GuWeeOhServer extends AbstractServer
 	    	LoginData data = (LoginData) arg0;
 	    	Object result = "";
 	    	
-	    	dml = "SELECT username from User WHERE username = '" + data.getUsername() + 
+	    	dml = "SELECT username from Users WHERE username = '" + data.getUsername() + 
 	    			"' and aes_decrypt(password, 'key')='"+ data.getPassword()+"'";
 	    	
 	    	//System.out.println(dml);
@@ -106,6 +120,9 @@ public class GuWeeOhServer extends AbstractServer
 	    	if (results != null)
 	    	{
 	    		result = "LoginSuccessful";
+				User user = new User(data.getUsername(), data.getPassword(), arg1.getId());
+
+	    		onlinePlayers.add(user);
 	    		//User user = new User(data.getUsername(), data.getPassword());
 
 	    		log.append("Client " + arg1.getId() + " successfully logged in as " + data.getUsername() + "\n");
@@ -115,8 +132,40 @@ public class GuWeeOhServer extends AbstractServer
 	    		System.out.println("Error executing query.");
 				result = new Error("The username and password are incorrect.", "Login");
 				log.append("Client " + arg1.getId() + " failed to log in\n");
+				
+				
 	    	}
 	    	
+	    	
+	    	//Determine Player 1
+	    	if (!isPlayer)
+	    	{
+	    		isPlayer = true;
+	    		result = result + ", Player1: " + data.getUsername();
+	    		playerCount++;
+	    		System.out.println(result);
+	    	}
+	    	else //Determine Player 2
+	    	{
+	    		if(playerCount > 0 && playerCount < 2)
+	    		{
+	    			playerCount++;
+	    			result = result + ", Player" + playerCount + ":" + data.getUsername();
+	    			//System.out.println(result);
+	    		}
+	    		else
+	    		{
+	    	        msg ="Server Full";
+	    	        result = new Error("Server is Full", "Login");
+					log.append("Client " + arg1.getId() + " failed to log in, server full\n");
+	    	        try {
+						arg1.sendToClient(msg);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	    		}
+	    	}
 	    	//Send result to client
 	    	try
 	        {
@@ -126,6 +175,7 @@ public class GuWeeOhServer extends AbstractServer
 	        {
 	          return;
 	        }
+	    	
 	    }
 	    
 	    // If we received CreateAccountData, create a new account.
@@ -136,8 +186,8 @@ public class GuWeeOhServer extends AbstractServer
 	      Object result = "";
 	      
 	      // Creating DML statement 
-	      dml = "INSERT into user values('" + data.getUsername() +
-	    		  "',aes_encrypt('" +data.getPassword()+"','key'))";
+	      dml = "INSERT into users values('" + data.getUsername() +
+	    		  "',aes_encrypt('" +data.getPassword()+"','key'),0)";
 
 	      try
 	      {
@@ -165,8 +215,34 @@ public class GuWeeOhServer extends AbstractServer
 	      {
 	        return;
 	      }
+	     
 	    }
-	  }
+//	    else if(arg0 instanceof String[])
+//	    {
+//	    	String[] cards = (String[]) arg0;
+//	    	//Long pid = arg1.getId();
+//
+//			User user1 = new User();
+//			User user2 = new User();
+//					
+//			for (int i = 0; i < 3; i ++) 
+//			{
+//				player1Cards[i] = cards[rand.nextInt(4)];
+//				player2Cards[i] = cards[rand.nextInt(4)];
+//			}
+//			try {
+//				arg1.sendToClient((Object) player1Cards);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			//user1.setCards(player1Cards);
+//			//user2.setCards(player2Cards);
+//					
+//		}		
+			
+	 }
+	  
 
 	  // Method that handles listening exceptions by displaying exception information.
 	  public void listeningException(Throwable exception) 

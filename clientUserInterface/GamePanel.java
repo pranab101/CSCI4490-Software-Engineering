@@ -80,6 +80,7 @@ public class GamePanel extends JPanel {
 		// South - Play Hand / Play Again / Quit Game Buttons
 		JPanel buttons = new JPanel(new GridLayout(3, 0));
 		JButton playHand = new JButton("Play Hand");
+		playHand.addActionListener(gc);
 		buttons.add(playHand);
 
 		JButton playAgain = new JButton("Play Again");

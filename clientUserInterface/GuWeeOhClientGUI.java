@@ -16,6 +16,9 @@ package clientUserInterface;
 	   GuWeeOhClient client = new GuWeeOhClient();
 	    client.setHost(serverAddress);
 	    client.setPort(8300);
+	    // Set up game data.
+		GameData gameData = new GameData();
+	    User user = new User();
 	    try
 	    {
 	      client.openConnection();
@@ -88,9 +91,22 @@ package clientUserInterface;
 	          "Enter IP Address of the Server:",
 	          "Welcome to GuWeeOh!",
 	          JOptionPane.QUESTION_MESSAGE);
-	      frame.setVisible(true);
-	    new GuWeeOhClientGUI(serverAddress);
-	    frame.setVisible(false);
+	      if (serverAddress == null || serverAddress.trim().isEmpty() ) {
+	            // User clicked Cancel, exit the program
+	            System.exit(0);
+	        } else {
+	            // User provided input
+
+	            // Initialize your GuWeeOhClientGUI with the serverAddress
+	            new GuWeeOhClientGUI(serverAddress);
+
+	            // Additional code as needed
+	        }
+
+	        frame.setVisible(false);
+//	      frame.setVisible(true);
+//	    new GuWeeOhClientGUI(serverAddress);
+//	    frame.setVisible(false);
 		  
 	  }
 	}
